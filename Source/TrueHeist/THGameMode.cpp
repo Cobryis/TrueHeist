@@ -1,10 +1,10 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
-#include "TrueHeistGameMode.h"
-#include "TrueHeistCharacter.h"
+#include "THGameMode.h"
+#include "THCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
-ATrueHeistGameMode::ATrueHeistGameMode()
+ATHGameMode::ATHGameMode()
 {
 	// set default pawn class to our Blueprinted character
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPersonCPP/Blueprints/ThirdPersonCharacter"));

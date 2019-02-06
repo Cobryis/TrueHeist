@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "TrueHeistGameMode.generated.h"
+#include "THGameMode.generated.h"
 
 UCLASS(minimalapi)
-class ATrueHeistGameMode : public AGameModeBase
+class ATHGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
 public:
-	ATrueHeistGameMode();
+	ATHGameMode();
 };
 
 
