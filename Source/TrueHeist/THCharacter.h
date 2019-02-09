@@ -37,6 +37,8 @@ protected:
 	/** Called for side to side input */
 	void MoveRight(float Value);
 
+	virtual FRotator GetViewRotation() const override;
+
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

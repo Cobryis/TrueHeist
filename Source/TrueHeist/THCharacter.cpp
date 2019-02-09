@@ -2,7 +2,7 @@
 
 #include "THCharacter.h"
 
-#include "HeadMountedDisplayFunctionLibrary.h"
+#include "AIController.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -95,4 +95,13 @@ void ATHCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
+}
+
+FRotator ATHCharacter::GetViewRotation() const
+{
+	if (Controller && Controller->IsA<AAIController>())
+	{
+		return GetActorRotation();
+	}
+	return Super::GetViewRotation();
 }
