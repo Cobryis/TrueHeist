@@ -40,16 +40,21 @@ void ATHPlayerController::Tick(float DeltaSeconds)
 		FHitResult OutHit;
 		if (GetWorld()->LineTraceSingleByChannel(OutHit, OutCameraLoc, OutCameraLoc + OutCameraRot.Vector() * (ActionDistance + CameraBoomLength), ECC_Actionable))
 		{
+			if (ActionData.CurrentActionableActor != OutHit.GetActor())
+			{
+				ActionData.Clear();
+			}
+
 			if (OutHit.Actor.IsValid(false) && OutHit.GetActor()->GetClass()->ImplementsInterface(UActionInterface::StaticClass()))
 			{
 				ActionData.CurrentActionableActor = OutHit.GetActor();
 				ActionData.bHasAction = IActionInterface::Execute_HasAction(ActionData.CurrentActionableActor);
 				ActionData.DisplayText = IActionInterface::Execute_GetActionText(ActionData.CurrentActionableActor);
-			}
-			else
-			{
-				ensureMsgf(false, TEXT("Actionable channel was hit but IActionInterface not found on hit actor!"));
-				ActionData.Clear();
+				ActionData.ActionPrimitive = IActionInterface::Execute_GetActionPrimitive(ActionData.CurrentActionableActor);
+				if (ActionData.ActionPrimitive)
+				{
+					ActionData.ActionPrimitive->SetCustomDepthStencilValue(8);
+				}
 			}
 		}
 		else

@@ -17,6 +17,9 @@ struct FActionData
 	AActor* CurrentActionableActor = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, Transient, Category = "Action")
+	UPrimitiveComponent* ActionPrimitive = nullptr;
+
+	UPROPERTY(BlueprintReadOnly, Transient, Category = "Action")
 	bool bHasAction = false;
 
 	UPROPERTY(BlueprintReadOnly, Transient, Category = "Action")
@@ -31,6 +34,11 @@ struct FActionData
 	{
 		if (IsValid())
 		{
+			if (ActionPrimitive)
+			{
+				ActionPrimitive->SetCustomDepthStencilValue(0);
+				ActionPrimitive = nullptr;
+			}
 			CurrentActionableActor = nullptr;
 			bHasAction = false;
 			DisplayText = FText::GetEmpty();
