@@ -125,7 +125,8 @@ float UAISense_Suspicion::Update()
 				continue;
 			}
 
-			if (CurrentlyPerceivedActors.Contains(Event.Instigator))
+			// only register stimulus if we're the observer or this actor was perceived when suspicious event occurred
+			if (Event.Observer || CurrentlyPerceivedActors.Contains(Event.Instigator))
 			{
 				FAIStimulus SuspicionOnInstigator(*this, FMath::Max(0.f, Event.Intensity), Event.Location, Listener.CachedLocation, FAIStimulus::SensingSucceeded, Event.Tag);
 
