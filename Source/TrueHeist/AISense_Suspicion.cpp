@@ -119,14 +119,26 @@ float UAISense_Suspicion::Update()
 		Listener.Listener->GetCurrentlyPerceivedActors(UAISense_Sight::StaticClass(), CurrentlyPerceivedActors);
 		for (const FAISuspiciousEvent& Event : SuspiciousEvents)
 		{
-			if (Event.Observer != Listener.Listener)
+			// if the event was caused by an observer, only stimulate that observer
+			if (Event.Observer && (Event.Observer != Listener.Listener))
 			{
 				continue;
 			}
 
 			if (CurrentlyPerceivedActors.Contains(Event.Instigator))
 			{
-				Listener.RegisterStimulus(Event.Instigator, FAIStimulus(*this, FMath::Max(0.f, Event.Intensity), Event.Location, Listener.CachedLocation, FAIStimulus::SensingSucceeded, Event.Tag));
+				FAIStimulus SuspicionOnInstigator(*this, FMath::Max(0.f, Event.Intensity), Event.Location, Listener.CachedLocation, FAIStimulus::SensingSucceeded, Event.Tag);
+
+				// if we're already suspicious of this actor, add the old suspicion to the new
+				FActorPerceptionBlueprintInfo ActorPerceptioninfo;
+				Listener.Listener->GetActorsPerception(Event.Instigator, ActorPerceptioninfo);
+				if (ActorPerceptioninfo.LastSensedStimuli.IsValidIndex(GetSenseID()))
+				{
+					FAIStimulus& OldStimulus = ActorPerceptioninfo.LastSensedStimuli[GetSenseID()];
+					SuspicionOnInstigator.Strength += OldStimulus.Strength;
+				}
+
+				Listener.RegisterStimulus(Event.Instigator, SuspicionOnInstigator);
 			}
 		}
 	}
