@@ -8,6 +8,10 @@ public class TrueHeist : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "AIModule", "GameplayDebugger" });
+		PublicDependencyModuleNames.AddRange(new string[] 
+		{
+			"Core", "CoreUObject","Engine", "InputCore",
+			"AIModule", "GameplayDebugger", "GameplayTasks"
+		});
 	}
 }
