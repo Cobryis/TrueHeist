@@ -130,14 +130,14 @@ float UAISense_Suspicion::Update()
 			{
 				FAIStimulus SuspicionOnInstigator(*this, FMath::Max(0.f, Event.Intensity), Event.Location, Listener.CachedLocation, FAIStimulus::SensingSucceeded, Event.Tag);
 
-				// if we're already suspicious of this actor, add the old suspicion to the new
-				FActorPerceptionBlueprintInfo ActorPerceptioninfo;
-				Listener.Listener->GetActorsPerception(Event.Instigator, ActorPerceptioninfo);
-				if (ActorPerceptioninfo.LastSensedStimuli.IsValidIndex(GetSenseID()))
-				{
-					FAIStimulus& OldStimulus = ActorPerceptioninfo.LastSensedStimuli[GetSenseID()];
-					SuspicionOnInstigator.Strength += OldStimulus.Strength;
-				}
+//				// if we're already suspicious of this actor, add the old suspicion to the new
+// 				FActorPerceptionBlueprintInfo ActorPerceptioninfo;
+// 				Listener.Listener->GetActorsPerception(Event.Instigator, ActorPerceptioninfo);
+// 				if (ActorPerceptioninfo.LastSensedStimuli.IsValidIndex(GetSenseID()))
+// 				{
+// 					FAIStimulus& OldStimulus = ActorPerceptioninfo.LastSensedStimuli[GetSenseID()];
+// 					SuspicionOnInstigator.Strength += OldStimulus.Strength;
+// 				}
 
 				Listener.RegisterStimulus(Event.Instigator, SuspicionOnInstigator);
 			}
