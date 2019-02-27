@@ -39,6 +39,10 @@ protected:
 
 	virtual FRotator GetViewRotation() const override;
 
+	UFUNCTION(BlueprintNativeEvent, Category = Character)
+	FRotator BP_GetViewRotation() const;
+	virtual FRotator BP_GetViewRotation_Implementation() const;
+
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

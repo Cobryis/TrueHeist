@@ -99,6 +99,11 @@ void ATHCharacter::MoveRight(float Value)
 
 FRotator ATHCharacter::GetViewRotation() const
 {
+	return BP_GetViewRotation();
+}
+
+FRotator ATHCharacter::BP_GetViewRotation_Implementation() const
+{
 	if (Controller && Controller->IsA<AAIController>())
 	{
 		return GetActorRotation();
